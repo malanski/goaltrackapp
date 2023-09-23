@@ -9,12 +9,6 @@ type Props = {
 }
 
 export default function TaskInput({onAdd, value, onChangeText}: Props) {
-  const [activity, setActivity] = useState('')
-  const [activityList, setActivityList] = useState<string[]>([])
-  const [isCheckedList, setIsCheckedList] = useState<boolean[]>([]);
-
-
-
   return (
     <>
       <View style={styles.form}>

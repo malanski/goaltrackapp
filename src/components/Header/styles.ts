@@ -10,7 +10,8 @@ export const styles = StyleSheet.create({
   textTitle: {
     textTransform:'uppercase',
     color: '#b73e3e',
-    fontSize: 32
+    fontSize: 32,
+    paddingTop: 16
   },
 })  
 

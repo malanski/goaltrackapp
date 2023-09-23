@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import TaskInput from './components/TaskInput'
 import ActivityCard from './components/ActivityCard'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Footer from '../../components/Footer'
 
 export default function Home() {
   const [activity, setActivity] = useState('')
@@ -102,6 +103,8 @@ export default function Home() {
                 onRemove={() => handleRemoveActivity(index)} />
             ))
           }
+
+          <Footer />
         </ScrollView>
       </View>
     </View>
