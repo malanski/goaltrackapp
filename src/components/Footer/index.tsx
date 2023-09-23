@@ -4,12 +4,16 @@ import { Linking } from 'react-native'
 import { Icon } from 'react-native-elements'
 
 
+
 export default function Footer() {
   const portfolioLink = () => {
     Linking.openURL('https://malanski.github.io/portfolio/#/projects')
   }
+
   return (
     <View style={styles.footer}>
+     
+
       <Text style={styles.signature}>
         Desenvolvido por Ulisses Malanski
       </Text>
@@ -17,7 +21,7 @@ export default function Footer() {
         style={styles.portfolioLink}
         onPress={portfolioLink}
       >
-        <Icon name='arrow-left' color='#4767b1' />
+        <Icon name='arrow-left' color='#47b167' />
         <Text style={styles.link}>
           Portfolio
         </Text>

@@ -6,7 +6,6 @@ export default function Header() {
   return (
     <View style={styles.header}>
       <Icon name='check' color='#32a728' size={48}/>
-
       <Text style={styles.textTitle}>
         Goal track
       </Text>

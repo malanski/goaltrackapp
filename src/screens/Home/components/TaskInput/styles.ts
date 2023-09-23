@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     marginTop: 32,
-    marginBottom: 40
+    marginBottom: 16
   },
   input: {
     flex: 1,
