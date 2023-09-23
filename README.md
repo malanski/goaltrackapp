@@ -17,6 +17,7 @@ GoalTrack App is a mobile application that allows users to organize their tasks 
 - Expo
 - React Native Elements
 - AsyncStorage
+- Typescript
 
 ## Getting Started
 
@@ -24,8 +25,7 @@ To get started with GoalTrack App, follow these steps:
 
 1. Clone this repository to your local machine:
 ```bash
-git clone https://github.com/your-username/goaltrackapp.git    
-    
+git clone https://github.com/your-username/goaltrackapp.git     
 ```
 
 2. Navigate to the project directory:
@@ -33,7 +33,7 @@ git clone https://github.com/your-username/goaltrackapp.git
 cd goaltrackapp
 ```  
  
-3. Install dependencies using npm or yarn
+3. Install dependencies using npm or yarn:
 ```bash
 npm install
  
@@ -42,12 +42,12 @@ OR
 yarn install
 ```  
 
-4. Start development server
+4. Start development server:
 ```bash
 expo start
 ```  
 
-5. Use Expo Go
+5. Use Expo Go:
 
 Download it on your mobile device to scan the QR code displayed in the terminal to run the app on your device.  
   
@@ -62,7 +62,6 @@ Remove tasks by tapping the trash icon.
 ## Data Persistence
 
 GoalTrack App uses AsyncStorage to persistently store task data and their completion status. This means your tasks will still be available even after closing and reopening the app.
-License
 
 ## Contact
 
