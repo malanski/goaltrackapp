@@ -10,7 +10,15 @@ export const styles = StyleSheet.create({
     // bottom: 0
   },
 
+  removeChecked: {
+    color: '#bb5525',
+    backgroundColor: '#1c1e23',
+    textTransform:'uppercase',
+    borderRadius: 8,
+    fontSize: 16,
+    padding: 16,
 
+  },
   signature: {
     paddingTop: 32,
     color: '#fff',

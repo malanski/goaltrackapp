@@ -3,10 +3,10 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
   countTasks: {
-    flex: 1,
-    flexDirection:'row',
+    // flex: 1,
+    flexDirection:'row-reverse',
     justifyContent:'space-between',
-    paddingVertical: 32,
+    paddingVertical: 8,
     paddingHorizontal: 8,
     backgroundColor: '#1c1e23',
     borderRadius: 8,

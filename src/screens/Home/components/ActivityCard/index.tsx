@@ -35,7 +35,7 @@ export default function ActivityCard({index, item, onPress, listCheck, onRemove}
             name='remove-circle'
             color='#bb5525'
           />
-        </TouchableOpacity>
+        </TouchableOpacity> 
       </View>
 
     </>

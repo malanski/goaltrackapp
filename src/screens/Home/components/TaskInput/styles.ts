@@ -1,11 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
-
   form: {
     width: '100%',
     flexDirection: 'row',
-    marginTop: 32,
+    marginTop: 8,
     marginBottom: 16
   },
   input: {

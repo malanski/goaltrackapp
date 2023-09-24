@@ -3,26 +3,23 @@ import { styles } from './styles'
 
 type Props = {
   activityList: string[]
-  isCheckedList: boolean[]
+  countTrueValues: number
 }
 
-export default function CountTasks({ activityList, isCheckedList }: Props) {
-  const trueValues = isCheckedList.filter(value => value === true)
-  const countTrueValues = trueValues.length
+export default function CountTasks({ activityList, countTrueValues }: Props) {
   return (
-    <View style={styles.countTasks}>
+    <>
       {activityList.length > 0 && (
-        <>
+        <View style={styles.countTasks}>
         <Text style={styles.totalAmount}>
-          {activityList.length} Atividades
+          Atividades {activityList.length} 
         </Text>
 
         <Text style={styles.doneAmount}>
-          Concluídas {countTrueValues}
+          {countTrueValues} Concluídas
         </Text>
-        </>
+        </View>
       )}
-
-    </View>
+    </>
   )
 }

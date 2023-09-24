@@ -13,12 +13,14 @@ export default function Home() {
   const [activityList, setActivityList] = useState<string[]>([])
   const [isCheckedList, setIsCheckedList] = useState<boolean[]>([]);
   const isEmpty = activityList.length === 0
+  const trueValues = isCheckedList.filter(value => value === true)
+  const countTrueValues = trueValues.length
   useEffect(() => {
     getData();
   }, []);
 
   function handleAddActivity() {
-    if(activityList.includes(activity)){
+    if (activityList.includes(activity)) {
       return Alert.alert("Atividade Repetida!", "Uma atividade com o mesmo nome ja foi cadstrada. Por favor adicione uma tarefa diferente.")
     }
 
@@ -30,7 +32,7 @@ export default function Home() {
       setIsCheckedList(updatedIsCheckedList)
       setActivity('')
       storeData(updatedActivityList, updatedIsCheckedList)
-
+      console.log(activityList)
     }
   }
 
@@ -38,27 +40,27 @@ export default function Home() {
     Alert.alert(
       "Remover Atividade",
       `Você tem certeza que deseja remover a Atividade: ${activityList[index]}?`,
-    [
-      {
-        text: "Sim",
-        onPress: () => {
-          const updatedActivityList = [...activityList];
-          updatedActivityList.splice(index, 1);
-      
-          const updatedIsCheckedList = [...isCheckedList];
-          updatedIsCheckedList.splice(index, 1)
-      
-          setActivityList(updatedActivityList)
-          setIsCheckedList(updatedIsCheckedList)
-          storeData(updatedActivityList, updatedIsCheckedList)
+      [
+        {
+          text: "Sim",
+          onPress: () => {
+            const updatedActivityList = [...activityList];
+            updatedActivityList.splice(index, 1);
+
+            const updatedIsCheckedList = [...isCheckedList];
+            updatedIsCheckedList.splice(index, 1)
+
+            setActivityList(updatedActivityList)
+            setIsCheckedList(updatedIsCheckedList)
+            storeData(updatedActivityList, updatedIsCheckedList)
+          }
+        },
+        {
+          text: 'Não',
+          style: 'cancel'
         }
-      },
-      {
-        text: 'Não',
-        style: 'cancel'
-      }
-    ])
-    
+      ])
+
   }
 
   function handleCheckActivity(index: number) {
@@ -66,6 +68,28 @@ export default function Home() {
     updatedIsCheckedList[index] = !updatedIsCheckedList[index]
     setIsCheckedList(updatedIsCheckedList)
     storeData(activityList, updatedIsCheckedList);
+  }
+
+  function handleRemoveCheckedActivities() {
+    // Crie cópias atualizadas das listas
+    const updatedActivityList = [...activityList];
+    const updatedIsCheckedList = [...isCheckedList];
+  
+    // Use um loop inverso para evitar problemas de índice
+    for (let i = updatedActivityList.length - 1; i >= 0; i--) {
+      if (updatedIsCheckedList[i]) {
+        // Remova a atividade e o estado de isChecked correspondente
+        updatedActivityList.splice(i, 1);
+        updatedIsCheckedList.splice(i, 1);
+      }
+    }
+  
+    // Atualize o estado com as listas atualizadas
+    setActivityList(updatedActivityList);
+    setIsCheckedList(updatedIsCheckedList);
+  
+    // Armazene os dados atualizados no AsyncStorage
+    storeData(updatedActivityList, updatedIsCheckedList);
   }
 
   const storeData = async (
@@ -80,13 +104,15 @@ export default function Home() {
     }
   }
 
+
+
   const getData = async () => {
     try {
-      const activityListData  = await AsyncStorage.getItem('activityList')
-      const isCheckedListData   = await AsyncStorage.getItem('isCheckedList')
-  
-      if (activityListData && isCheckedListData ) {
-        const activityList  = JSON.parse(activityListData)
+      const activityListData = await AsyncStorage.getItem('activityList')
+      const isCheckedListData = await AsyncStorage.getItem('isCheckedList')
+
+      if (activityListData && isCheckedListData) {
+        const activityList = JSON.parse(activityListData)
         const isCheckedList = JSON.parse(isCheckedListData)
         setActivityList(activityList)
         setIsCheckedList(isCheckedList)
@@ -104,11 +130,13 @@ export default function Home() {
         onChangeText={(text) => setActivity(text)}
         value={activity}
       />
+      <CountTasks
+        activityList={activityList}
+        countTrueValues={countTrueValues} />
 
       <View style={styles.activityList}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <CountTasks activityList={activityList} isCheckedList={isCheckedList}/>
-          { isEmpty ? (
+          {isEmpty ? (
             <View style={styles.emptyList}>
               <Text style={styles.emptyListMessage}>
                 Você ainda não cadastrou nenhuma atividade.
@@ -116,22 +144,22 @@ export default function Home() {
               </Text>
               <Icon name='arrow-upward' color='#4767b1' />
             </View>
-            ) : (
-              activityList.map((item, index) => (
+          ) : (
+            activityList.map((item, index) => (
 
-                <ActivityCard
-                  key={`activity-${index}`}
-                  item={item}
-                  index={index}
-                  onPress={() => handleCheckActivity(index)}
-                  listCheck={isCheckedList[index]}
-                  onRemove={() => handleRemoveActivity(index)} />
-              ))
-            )
-            
-          }
-
-          <Footer />
+              <ActivityCard
+                key={`activity-${index}`}
+                item={item}
+                index={index}
+                onPress={() => handleCheckActivity(index)}
+                listCheck={isCheckedList[index]}
+                onRemove={() => handleRemoveActivity(index)} />
+            ))
+          )}
+          <Footer
+            onDeleteAll={handleRemoveCheckedActivities}
+            trueValues={trueValues}
+            />
         </ScrollView>
       </View>
     </View>
