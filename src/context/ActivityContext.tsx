@@ -1,13 +1,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import React, { createContext, useContext, useEffect, useState }from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Alert } from 'react-native'
 
 interface IActivityContext {
+  activity: string
+  setActivity: React.Dispatch<React.SetStateAction<string>>
+  activityList: string[]
+  isCheckedList: boolean[]
+  isEmpty: boolean
+  trueValues: boolean[]
+  countTrueValues: number
   handleAddActivity: () => void
   handleRemoveActivity: (index: number) => void
   handleCheckActivity: (index: number) => void
   handleRemoveCheckedActivities: () => void
-  getData: () => Promise<void>
   storeData: (activityList: string[], isCheckedList: boolean[]) => Promise<void>
 }
 
@@ -16,7 +22,7 @@ export const ActivityContext = createContext({} as IActivityContext)
 
 export const ActivityContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
-}) =>  {
+}) => {
 
   const [activity, setActivity] = useState('')
   const [activityList, setActivityList] = useState<string[]>([])
@@ -84,7 +90,7 @@ export const ActivityContextProvider: React.FC<{ children: React.ReactNode }> = 
     // Crie cópias atualizadas das listas
     const updatedActivityList = [...activityList];
     const updatedIsCheckedList = [...isCheckedList];
-  
+
     // Use um loop inverso para evitar problemas de índice
     for (let i = updatedActivityList.length - 1; i >= 0; i--) {
       if (updatedIsCheckedList[i]) {
@@ -93,11 +99,11 @@ export const ActivityContextProvider: React.FC<{ children: React.ReactNode }> = 
         updatedIsCheckedList.splice(i, 1);
       }
     }
-  
+
     // Atualize o estado com as listas atualizadas
     setActivityList(updatedActivityList);
     setIsCheckedList(updatedIsCheckedList);
-  
+
     // Armazene os dados atualizados no AsyncStorage
     storeData(updatedActivityList, updatedIsCheckedList);
   }
@@ -136,14 +142,20 @@ export const ActivityContextProvider: React.FC<{ children: React.ReactNode }> = 
   return (
     <ActivityContext.Provider
       value={{
+        activity,
+        isEmpty,
         handleAddActivity,
         handleRemoveActivity,
         handleCheckActivity,
         handleRemoveCheckedActivities,
-        getData,
         storeData,
-        }}>
-    {children}
-  </ActivityContext.Provider>
+        activityList,
+        isCheckedList,
+        setActivity,
+        countTrueValues,
+        trueValues
+      }}>
+      {children}
+    </ActivityContext.Provider>
   )
 }
