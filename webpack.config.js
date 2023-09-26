@@ -4,16 +4,26 @@ const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin'
 
 module.exports = {
   entry: './src/index.js', // Seu arquivo de entrada principal
+  mode: 'development', // ou 'production' ou 'none'
+
   output: {
     filename: 'bundle.js', // Nome do arquivo de saída
     path: path.resolve(__dirname, 'dist'), // Pasta de saída
+  },
+  externals: {
+    '@react-native/assets-registry/registry.js': true,
   },
   module: {
     rules: [
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: 'babel-loader', // Use o babel-loader para transpilar seu código
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-flow'],
+          },
+        },
       },
       {
         test: /\.(png|jpe?g|gif)$/i, // Correspondência com extensões de imagem
@@ -40,8 +50,17 @@ module.exports = {
       template: './public/index.html', // Arquivo HTML de modelo
     }),
     new ReactRefreshWebpackPlugin(), // Plugin de atualização a quente para React
+    new webpack.DefinePlugin({
+      __DEV__: JSON.stringify(true),
+    }),
   ],
   devServer: {
     hot: true, // Ativar a atualização a quente no servidor de desenvolvimento
+  },
+  stats: {
+    errorDetails: true,
+  },
+  globals: {
+    __DEV__: true,
   },
 };
