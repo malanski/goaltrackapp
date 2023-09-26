@@ -2,26 +2,56 @@
   "name": "goaltrackapp",
   "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
+  "presets": [
+    "module:metro-react-native-babel-preset",
+    "react-native-web"
+  ],
   "scripts": {
     "start": "expo start",
+    "start2": "react-app-rewired start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "build": "react-scripts build"
   },
   "dependencies": {
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
     "@react-native-async-storage/async-storage": "1.18.2",
     "expo": "~49.0.11",
     "expo-status-bar": "~1.6.0",
+    "html-webpack-plugin": "^5.5.3",
+    "metro-react-native-babel-preset": "^0.77.0",
     "react": "18.2.0",
-    "react-native": "0.72.4",
+    "react-dom": "18.2.*",
+    "react-native": "0.72.5",
     "react-native-elements": "^3.4.3",
-    "react-native-web": "^0.19.9"
+    "react-scripts": "^5.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@types/react": "~18.2.14",
     "@types/react-native": "^0.72.2",
-    "typescript": "^5.1.3"
+    "babel-loader": "^9.1.3",
+    "file-loader": "^6.2.0",
+    "react-app-rewired": "^2.2.1",
+    "react-native-web": "^0.19.9",
+    "typescript": "^3.9.10",
+    "url-loader": "^4.1.1",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   },
-  "private": true
+  "private": true,
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
 }

@@ -5,18 +5,20 @@ import { ThemeProvider } from 'react-native-elements'
 import { styles } from './styles'
 import { StatusBar, View } from 'react-native'
 import { ActivityContextProvider } from './src/context/ActivityContext'
+import React from 'react'
+import theme from './theme';
 
 export default function App() {
   return (
-    <ThemeProvider>
-      <ActivityContextProvider>
-      <View style={styles.container}>
-        <StatusBar translucent />
-        <Header />
-        <Home />
-      </View>
-      </ActivityContextProvider>
-    </ThemeProvider>
+      <ThemeProvider>
+        <ActivityContextProvider>
+          <View style={styles.container}>
+            <StatusBar translucent />
+            <Header />
+            <Home />
+          </View>
+        </ActivityContextProvider>
+      </ThemeProvider>
   )
 }
 

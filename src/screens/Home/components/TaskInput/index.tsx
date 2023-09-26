@@ -1,6 +1,6 @@
+import React from 'react'
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from './styles'
-import { useState } from "react";
 
 type Props = {
   onAdd: () => void
