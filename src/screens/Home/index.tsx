@@ -24,7 +24,6 @@ export default function Home() {
     trueValues,    
   } = activityContext || {}
 
-
   return (
     <View>
       <TaskInput
