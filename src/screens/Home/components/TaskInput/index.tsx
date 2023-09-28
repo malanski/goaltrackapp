@@ -1,6 +1,7 @@
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { styles } from './styles'
 import { useState } from "react";
+import { Icon } from 'react-native-elements'
 
 type Props = {
   onAdd: () => void
@@ -26,7 +27,7 @@ export default function TaskInput({onAdd, value, onChangeText}: Props) {
           onPress={onAdd}
         >
           <Text style={styles.buttonAdd}>
-            +
+            <Icon name="add-circle-outline" color='#98a7ca'/>
           </Text>
         </TouchableOpacity>
       </View>

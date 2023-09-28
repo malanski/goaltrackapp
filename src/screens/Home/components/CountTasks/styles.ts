@@ -15,11 +15,16 @@ export const styles = StyleSheet.create({
   totalAmount: {
     // textAlign: 'left',
     color: '#a4842b',
-    fontSize: 20
+    fontSize: 20,
+    fontFamily: 'boogalooRegular',
+
+
   },
   doneAmount: {
     // textAlign: 'left',
     color: '#47b167',
-    fontSize: 20
+    fontSize: 20,
+    fontFamily: 'boogalooRegular',
+
   },
 })

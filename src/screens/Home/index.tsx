@@ -1,14 +1,28 @@
 import { ScrollView, Text, View } from 'react-native'
 import { styles } from './styles'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import TaskInput from './components/TaskInput'
 import ActivityCard from './components/ActivityCard'
 import Footer from '../../components/Footer'
 import { Icon } from 'react-native-elements'
 import CountTasks from './components/CountTasks'
 import { ActivityContext } from '../../context/ActivityContext'
+import { useFonts } from 'expo-font';
+import Header from '../../components/Header'
+import EmptyTask from './components/EmptyTask'
+
 
 export default function Home() {
+  const [loaded] = useFonts({
+    boogalooRegular: require("../../../assets/fonts/Boogaloo-Regular.ttf")    
+  });
+  useEffect(() => {
+    if (!loaded) {
+      return;
+    }
+  }, [loaded]);
+
+
   const activityContext = useContext(ActivityContext)
   const {
     activity,
@@ -24,8 +38,14 @@ export default function Home() {
     trueValues,    
   } = activityContext || {}
 
+  if (!loaded) {
+    return <Text>Carregando fontes...</Text>;
+  }
+  
   return (
     <View>
+      <Header />
+
       <TaskInput
         onAdd={handleAddActivity}
         onChangeText={(text) => setActivity(text)}
@@ -35,16 +55,10 @@ export default function Home() {
         activityList={activityList}
         countTrueValues={countTrueValues} />
 
-      <View style={styles.activityList}>
+      <View style={styles.activityListStyle}>
         <ScrollView showsVerticalScrollIndicator={false}>
           {isEmpty ? (
-            <View style={styles.emptyList}>
-              <Text style={styles.emptyListMessage}>
-                Você ainda não cadastrou nenhuma atividade.
-                Escreva o que quiser e clique em + para criar uma nova atividade ou tarefa!
-              </Text>
-              <Icon name='arrow-upward' color='#4767b1' />
-            </View>
+            <EmptyTask />
           ) : (
             activityList.map((item, index) => (
 
